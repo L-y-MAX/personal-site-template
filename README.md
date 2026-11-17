@@ -11,7 +11,27 @@
 - 全站只改一份样式表、一份脚本
 
 > 站内所有姓名、学校、公司、赛事、邮箱、域名都是**占位内容**，请替换成你自己的。
-> 演示地址：<https://example.com/>
+> 在线 Demo：<https://l-y-max.github.io/personal-site-template/>
+
+---
+
+## 预览
+
+**首页**（桌面）
+
+![首页预览](preview/home.jpg)
+
+**项目详情页**（桌面，带侧边目录与截图画廊）
+
+![项目详情页预览](preview/detail.jpg)
+
+**手机端**
+
+| 首页 | 简历（网页版，PDF 打不开时自动切换） |
+|:---:|:---:|
+| <img src="preview/mobile-home.jpg" width="320" alt="手机首页"> | <img src="preview/mobile-resume.jpg" width="320" alt="手机简历"> |
+
+> 屏幕变宽时自动切三栏，变窄时收成单列并换成抽屉菜单；右上角可以手动切换深色模式。
 
 ---
 

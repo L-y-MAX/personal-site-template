@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小程序后端上线：从 ECS 到 HTTPS 的完整清单 | 示例手记</title>
+    <meta name="description" content="备案、Nginx、证书、合法域名——跟着项目完整走了一遍上线流程，真正卡人的从来不是代码。">
+    <meta name="author" content="小可">
+    <meta name="theme-color" content="#FBF9FF">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://example.com/notes/2026-11-14-deploy-https.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="示例手记">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:title" content="小程序后端上线：从 ECS 到 HTTPS 的完整清单 | 示例手记">
+    <meta property="og:description" content="备案、Nginx、证书、合法域名——跟着项目完整走了一遍上线流程，真正卡人的从来不是代码。">
+    <meta property="og:url" content="https://example.com/notes/2026-11-14-deploy-https.html">
+    <meta property="og:image" content="https://example.com/img/og-cover.jpg">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../img/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="stylesheet" href="../css/main.css?v=20261116a">
+    <script>
+        (function () {
+            var root = document.documentElement;
+            try {
+                var t = localStorage.getItem('coco-theme');
+                if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                root.setAttribute('data-theme', t);
+            } catch (e) {}
+            root.classList.add('js');
+            setTimeout(function () {
+                if (!root.hasAttribute('data-reveal-ready')) root.classList.remove('js');
+            }, 2500);
+        })();
+    </script>
+    <script src="../js/main.js?v=20261116a" defer></script>
+    <script src="../js/analytics.js?v=20261116a" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <header class="nav">
+        <div class="nav__inner">
+            <a class="brand" href="../index.html" aria-label="示例手记，返回首页">
+                <span class="brand__mark" aria-hidden="true">C</span>
+                <span>示例手记<span class="brand__sub">Demo · 作品与手记</span></span>
+            </a>
+            <nav class="nav__links" id="nav-links" aria-label="主导航">
+                <a href="../index.html#project" data-nav="project">项目作品</a>
+                <a href="../notes/index.html" data-nav="notes">笔记</a>
+                <a href="../index.html#award" data-nav="award">荣誉 &amp; 技能</a>
+                <a href="../about.html" data-nav="about">关于我</a>
+                <a href="../resume.html" data-nav="resume">简历</a>
+            </nav>
+            <div class="nav__actions">
+                <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" aria-pressed="false">
+                    <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+                    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+                </button>
+                                <a class="icon-btn" href="https://github.com/your-github" target="_blank" rel="noopener" aria-label="GitHub" data-track="github">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+                <a class="icon-btn" href="mailto:hello@example.com" aria-label="邮箱" data-track="email-click">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+                </a>
+                <button class="nav__toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="wrap page-head">
+            <a class="back" href="../notes/index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+                返回笔记
+            </a>
+            <span class="eyebrow">Note</span>
+            <h1 class="section-title page-title">小程序后端上线：从 ECS 到 HTTPS 的完整清单</h1>
+            <div class="post-meta">
+                <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
+                    2026-11-14
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    阅读约 2 分钟
+                </span>
+                <span class="chip">部署 · Nginx · 小程序</span>
+            </div>
+        </div>
+
+        <section class="section section--tight" style="padding-top:0;">
+            <div class="wrap">
+                <div class="case-layout">
+                    <div>
+                        <div class="prose">
+<p>《示例项目》上线那阵子，我从头跟了一遍后端从本地 <code>runserver</code> 搬到阿里云的过程。我以为最难的是代码，结果真正耗时间的全是备案、证书和端口这类事。</p>
+<p>这篇把当时走过的顺序整理成清单，给以后要用的人（包括我自己）省点时间。</p>
+<h2 id="sec-1">一、先备案，再谈上线</h2>
+<p>域名解析到服务器之前，先确认两件事：</p>
+<ul>
+<li>域名已完成 <strong>ICP 备案</strong>，并且备案主体和网站名称与实际一致；</li>
+<li>备案通过后，页面底部要挂备案号并链接到工信部，这一步别拖。</li>
+</ul>
+<p>没备案的域名，八十端口能开，但小程序后台根本加不进去——不是报错的问题，是前置条件不成立。</p>
+<h2 id="sec-2">二、Nginx 反向代理</h2>
+<p>Django 的 <code>runserver</code> 只能用来开发。线上让它跑在 <code>127.0.0.1:8000</code>，外面用 Nginx 接：</p>
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name api.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name api.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/api.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.example.com/privkey.pem;
+
+    client_max_body_size 12m;
+
+    location /static/ {
+        alias /srv/app/static/;
+        expires 30d;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}</code></pre>
+<p>几个容易漏的点：</p>
+<ol>
+<li>没有 <code>X-Forwarded-Proto</code>，Django 会以为自己在跑 HTTP，重定向会绕圈；</li>
+<li>上传接口要放 <code>client_max_body_size</code>，默认 1 MB 传个头像就 413；</li>
+<li>静态文件交给 Nginx，不要让 Django 去处理。</li>
+</ol>
+<h2 id="sec-3">三、证书</h2>
+<p>用 Let&#x27;s Encrypt 最省事：</p>
+<pre><code class="language-bash">sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d api.example.com
+sudo certbot renew --dry-run</code></pre>
+<p><code>renew --dry-run</code> 一定要跑一遍，不然三个月后证书过期才发现就晚了。</p>
+<h2 id="sec-4">四、小程序后台的合法域名</h2>
+<p>微信要求请求域名必须是 <strong>HTTPS</strong> 且在后台白名单里，<code>request</code> 和 <code>uploadFile</code> 的域名要分别配置。</p>
+<p>改域名之后记得重新编译小程序，开发者工具会缓存旧配置。</p>
+<h2 id="sec-5">五、上线前检查清单</h2>
+<ul>
+<li class="task"><code>DEBUG = False</code>，<code>ALLOWED_HOSTS</code> 填了正式域名</li>
+<li class="task">数据库密码、密钥都在环境变量里，不在代码里</li>
+<li class="task">静态文件已 <code>collectstatic</code></li>
+<li class="task">80 端口能 301 到 443，证书链完整</li>
+<li class="task">接口带上错误码，前端能区分「未登录」和「无权限」</li>
+<li class="task">有日志，并且能按时间查到请求</li>
+</ul>
+<p>上线这件事，代码只是其中一环。把这套流程走顺一次之后，后面换服务器就只是机械劳动了。</p>
+                        </div>
+                        <nav class="post-nav" aria-label="上下篇">
+                            <a href="2026-11-09-api-permission-audit.html" rel="prev"><small>上一篇（更早）</small><strong>接口越权自查：后端权限的四个检查点</strong></a>
+                        </nav>
+                    </div>
+                    <aside class="toc" aria-label="本篇目录">
+                        <h4>本篇目录</h4>
+                        <ul>
+                            <li><a href="#sec-1">一、先备案，再谈上线</a></li>
+                            <li><a href="#sec-2">二、Nginx 反向代理</a></li>
+                            <li><a href="#sec-3">三、证书</a></li>
+                            <li><a href="#sec-4">四、小程序后台的合法域名</a></li>
+                            <li><a href="#sec-5">五、上线前检查清单</a></li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="wrap">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a class="brand" href="../index.html">
+                        <span class="brand__mark" aria-hidden="true">C</span>
+                        <span>示例手记<span class="brand__sub">Demo · 作品与手记</span></span>
+                    </a>
+                    <p>一个软件工程学生的作品与记录 —— 后端、小程序与 AI 应用。</p>
+                    <div class="footer__social">
+                        <a class="icon-btn" href="https://github.com/your-github" target="_blank" rel="noopener" aria-label="GitHub" data-track="github">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        </a>
+                        <a class="icon-btn" href="mailto:hello@example.com" aria-label="邮箱">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>页面</h4>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../about.html">详细介绍</a></li>
+                        <li><a href="../resume.html">简历</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>内容</h4>
+                    <ul>
+                        <li><a href="../index.html#project">项目作品</a></li>
+                        <li><a href="../notes/index.html">笔记</a></li>
+                        <li><a href="../index.html#award">荣誉 &amp; 技能</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>联系</h4>
+                    <ul>
+                        <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+                        <li><a href="https://github.com/your-github" target="_blank" rel="noopener" data-track="github">GitHub</a></li>
+                        <li><a href="../index.html#contact">合作意向</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 备案号：备案通过后，把下面这行放进 footer__bottom 里并去掉注释
+                 <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备XXXXXXXX号</a> -->
+            <div class="footer__bottom">
+                <span>© <span data-year>2026</span> 示例手记 · 小可</span>
+                <span>example.com</span>
+            </div>
+        </div>
+    </footer>
+
+    <button class="to-top" type="button" aria-label="回到顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+</body>
+</html>

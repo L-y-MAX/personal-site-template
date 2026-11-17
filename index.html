@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小可 | 示例手记</title>
+    <meta name="description" content="小可，某某大学软件工程在读。方向软件测试，带团队做过 AI 小程序、负责前端与项目推进，作品《示例项目》团队负责人。">
+    <meta name="author" content="小可">
+    <meta name="keywords" content="小可,Demo,某某大学,软件工程,软件测试,微信小程序,前端开发,个人作品集">
+    <meta name="theme-color" content="#FBF9FF">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://example.com/">
+
+    <!-- 分享卡片：微信/QQ/微博/Twitter 抓取这些标签 -->
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="示例手记">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:title" content="小可 | 软件工程 · AI 应用与小程序开发">
+    <meta property="og:description" content="软件测试方向，带团队做过 AI 小程序、负责前端与项目推进。作品《示例项目》团队负责人。">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:image" content="https://example.com/img/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="小可 | 软件工程 · AI 应用与小程序开发">
+    <meta name="twitter:description" content="软件测试方向，带团队做过 AI 小程序、负责前端与项目推进。">
+    <meta name="twitter:image" content="https://example.com/img/og-cover.jpg">
+
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="css/main.css?v=20261116a">
+
+    <!-- 先套用主题，避免暗色模式下刷新闪白；同时标记 JS 可用 -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            try {
+                var t = localStorage.getItem('coco-theme');
+                if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                root.setAttribute('data-theme', t);
+            } catch (e) {}
+            root.classList.add('js');
+            /* 兜底：2.5 秒后动画脚本仍未接手，就把内容全部显示出来，避免白屏 */
+            setTimeout(function () {
+                if (!root.hasAttribute('data-reveal-ready')) root.classList.remove('js');
+            }, 2500);
+        })();
+    </script>
+    <script src="js/main.js?v=20261116a" defer></script>
+    <script src="js/analytics.js?v=20261116a" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "小可",
+      "alternateName": "Demo",
+      "url": "https://example.com/",
+      "image": "https://example.com/img/avatar.jpg",
+      "jobTitle": "软件工程学生",
+      "school": "某某大学",
+      "knowsAbout": ["Python", "Django", "微信小程序", "PostgreSQL", "大模型应用"],
+      "award": [
+        "第19届中国大学生学科竞赛 省二等奖",
+        "全国大学生电商挑战赛 省级二等奖",
+        "全国大学生电商挑战赛 某某大学校级赛一等奖",
+        "某某大学本科生一等奖学金",
+        "某某大学校级优秀学生",
+        "某某大学优秀共青团员"
+      ],
+      "description": "某某大学软件工程专业学生，方向软件测试，带团队做过 AI 小程序并负责前端与项目推进。"
+    }
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ================= 导航 ================= -->
+    <header class="nav">
+        <div class="nav__inner">
+            <a class="brand" href="index.html" aria-label="示例手记，返回首页">
+                <span class="brand__mark" aria-hidden="true">C</span>
+                <span>示例手记<span class="brand__sub">Demo · 作品与手记</span></span>
+            </a>
+
+            <nav class="nav__links" id="nav-links" aria-label="主导航">
+                <a href="index.html#project" data-nav="project">项目作品</a>
+                <a href="notes/index.html" data-nav="notes">笔记</a>
+                <a href="index.html#award" data-nav="award">荣誉 &amp; 技能</a>
+                <a href="about.html" data-nav="about">关于我</a>
+                <a href="resume.html" data-nav="resume">简历</a>
+            </nav>
+
+            <div class="nav__actions">
+                <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式" aria-pressed="false">
+                    <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+                    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+                </button>
+                <a class="icon-btn" href="https://github.com/your-github" target="_blank" rel="noopener" aria-label="GitHub" data-track="github">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+                <a class="icon-btn" href="mailto:hello@example.com" aria-label="邮箱" data-track="email-click">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+                </a>
+                <button class="nav__toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- ================= 首屏 ================= -->
+        <section class="hero">
+            <div class="wrap hero__grid">
+                <div class="hero__copy">
+                    <span class="status-badge" data-reveal>
+                        <span class="pulse" aria-hidden="true"></span>
+                        在读 · 开放实习与项目合作
+                    </span>
+
+                    <h1 class="hero__title" data-reveal style="--d:60ms">
+                        你好，我是
+                        <span class="gradient-text">小可&nbsp;Demo</span>
+                        <span class="en">Testing · Frontend · Mini Program</span>
+                    </h1>
+
+                    <p class="rotator" data-reveal style="--d:120ms"
+                       data-rotator='["软件测试","微信小程序","前端开发","团队统筹"]'>
+                        专注 <span class="rotator__text">软件测试</span><i class="rotator__caret" aria-hidden="true"></i>
+                    </p>
+
+                    <p class="hero__desc" data-reveal style="--d:180ms">
+                        某某大学软件工程专业。带团队做过一款上线的 AI 小程序，负责前端与整体推进；
+                        现在专注软件测试方向，习惯先把问题找出来，再谈怎么解决。
+                    </p>
+
+                    <div class="hero__cta" data-reveal style="--d:240ms">
+                        <a class="btn btn--primary" href="#project">
+                            查看项目
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </a>
+                        <a class="btn btn--ghost" href="resume.pdf" download data-track="resume-download">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5M4 21h16"/></svg>
+                            下载简历
+                        </a>
+                    </div>
+
+                    <div class="hero__facts" data-reveal style="--d:300ms">
+                        <span class="fact">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+                            <b>某某大学</b> 软件工程
+                        </span>
+                        <span class="fact">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                            <b>某市 · 可远程</b>
+                        </span>
+                        <span class="fact">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8L12 3Z"/></svg>
+                            <b>11 项</b> 获奖荣誉
+                        </span>
+                    </div>
+                </div>
+
+                <div class="portrait" data-reveal style="--d:200ms">
+                    <div class="portrait__frame" data-fallback-host>
+                        <picture>
+                            <source srcset="img/avatar.webp" type="image/webp">
+                            <img src="img/avatar.jpg" alt="小可的照片" width="800" height="1066" data-fallback fetchpriority="high">
+                        </picture>
+                        <div class="portrait__empty">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                            <span>把照片放到<br><code>img/avatar.jpg</code></span>
+                        </div>
+                    </div>
+
+                    <div class="float-card float-card--tl">
+                        <span class="ic" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4"/></svg>
+                        </span>
+                        微信小程序 · 前端
+                    </div>
+                    <div class="float-card float-card--br">
+                        <span class="ic" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8L12 3Z"/></svg>
+                        </span>
+                        数字媒体竞赛参赛中
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 技能跑马灯 ================= -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <div class="marquee__group">
+                    <span class="marquee__item">C++</span>
+                    <span class="marquee__item">Python（入门）</span>
+                    <span class="marquee__item">Web 前端</span>
+                    <span class="marquee__item">微信小程序</span>
+                    <span class="marquee__item">WXML / WXSS</span>
+                    <span class="marquee__item">数据库原理</span>
+                    <span class="marquee__item">SQL</span>
+                    <span class="marquee__item">测试用例设计</span>
+                    <span class="marquee__item">缺陷管理</span>
+                    <span class="marquee__item">接口测试</span>
+                </div>
+                <div class="marquee__group">
+                    <span class="marquee__item">C++</span>
+                    <span class="marquee__item">Python（入门）</span>
+                    <span class="marquee__item">Web 前端</span>
+                    <span class="marquee__item">微信小程序</span>
+                    <span class="marquee__item">WXML / WXSS</span>
+                    <span class="marquee__item">数据库原理</span>
+                    <span class="marquee__item">SQL</span>
+                    <span class="marquee__item">测试用例设计</span>
+                    <span class="marquee__item">缺陷管理</span>
+                    <span class="marquee__item">接口测试</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 数据 ================= -->
+        <section class="section section--tight">
+            <div class="wrap">
+                <div class="stats" data-reveal>
+                    <div class="stat">
+                        <span class="stat__num"><span data-count="11">0</span><span class="suffix">项</span></span>
+                        <span class="stat__label">获奖与荣誉</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num"><span data-count="4">0</span><span class="suffix">项</span></span>
+                        <span class="stat__label">竞赛获奖</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num"><span data-count="2">0</span><span class="suffix">次</span></span>
+                        <span class="stat__label">校级奖学金</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num"><span data-count="4">0</span><span class="suffix">段</span></span>
+                        <span class="stat__label">学生干部经历</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 项目作品 ================= -->
+        <section class="section" id="project">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <span class="eyebrow">Selected Work</span>
+                    <h2 class="section-title">项目作品</h2>
+                    <p class="section-desc">从需求、设计到上线部署都跟着走了一遍。下面是我最想聊的两个作品。</p>
+                </div>
+
+                <div class="cards">
+                    <!-- 项目一 -->
+                    <article class="card" data-reveal>
+                        <div class="card__media card__media--phone" data-fallback-host>
+                            <div class="phone">
+                                <img src="img/zhiyin.png" alt="示例项目小程序界面" width="631" height="1400" loading="lazy" data-fallback>
+                            </div>
+                            <div class="media-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+                                <span>把小程序截图放到<br><code>img/zhiyin.png</code></span>
+                            </div>
+                        </div>
+                        <div class="card__body">
+                            <div class="card__meta">
+                                <span class="chip">数字媒体竞赛</span>
+                                <span class="chip chip--outline">微信小程序</span>
+                            </div>
+                            <h3 class="card__title"><a class="card__stretch" href="detail.html">示例项目 · AI 生涯规划小程序</a></h3>
+                            <p class="card__text">团队负责人兼前端主导，把一款 AI 生涯规划小程序从方案推到上线，负责页面、交互与整体进度。</p>
+                            <div class="card__foot">
+                                <span>团队负责人 · 2026</span>
+                                <span class="arrow-link">
+                                    查看详情
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 项目二：占位卡片，换成你自己的项目即可 -->
+                    <article class="card" data-reveal style="--d:100ms">
+                        <div class="card__media">
+                            <div class="media-placeholder" style="display:grid">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4"/><path d="M13 5l-2 14"/></svg>
+                                <span>这个位置留给你下一个项目<br>把截图放进 <code>img/</code> 就行</span>
+                            </div>
+                        </div>
+                        <div class="card__body">
+                            <div class="card__meta">
+                                <span class="chip">课程与实验</span>
+                                <span class="chip chip--outline">整理中</span>
+                            </div>
+                            <h3 class="card__title">课程实验与竞赛作品集</h3>
+                            <p class="card__text">C / C++ 课程设计、Web 前端练习、测试用例作业正在整理成可复现的仓库，之后会陆续搬到这里。</p>
+                            <div class="card__foot">
+                                <span>持续更新</span>
+                                <a class="arrow-link" href="https://github.com/your-github" target="_blank" rel="noopener">
+                                    去 GitHub 看源码
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 荣誉 & 技能 ================= -->
+        <section class="section section--alt" id="award">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <span class="eyebrow">Honors &amp; Skills</span>
+                    <h2 class="section-title">荣誉 &amp; 技能</h2>
+                    <p class="section-desc">比赛带来的不只是证书，还有把项目从 0 推到上线的那套流程。</p>
+                </div>
+
+                <div class="grid-aside">
+                    <div class="panel" data-reveal>
+                        <div class="panel__head">
+                            <span class="panel__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l3 5-7 13L5 8l3-5Z"/><path d="M5 8h14"/></svg>
+                            </span>
+                            <h3 class="panel__title">获奖与荣誉</h3>
+                        </div>
+                        <div class="awards">
+                            <div class="award">
+                                <span class="award__date">2026.10</span>
+                                <span class="award__name">某某大学校级优秀学生</span>
+                                <span class="award__lv">校级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2026.10</span>
+                                <span class="award__name">某某大学本科生一等奖学金</span>
+                                <span class="award__lv">校级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2026.09</span>
+                                <span class="award__name">中国大学生学科竞赛<span>省二等奖</span></span>
+                                <span class="award__lv award__lv--top">省级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2026.09</span>
+                                <span class="award__name">省级创新大赛<span>高教主赛道 · 省铜奖</span></span>
+                                <span class="award__lv award__lv--top">省级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2026.04</span>
+                                <span class="award__name">某某大学优秀共青团员<span>2025、2026 连续两年</span></span>
+                                <span class="award__lv">校级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2026.03</span>
+                                <span class="award__name">学院社会实践优秀个人</span>
+                                <span class="award__lv">院级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2025.11</span>
+                                <span class="award__name">某某大学本科生二等奖学金</span>
+                                <span class="award__lv">校级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2025.11</span>
+                                <span class="award__name">某某大学 · 院级优秀学生</span>
+                                <span class="award__lv">院级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2025.08</span>
+                                <span class="award__name">全国大学生电商挑战赛<span>省级二等奖</span></span>
+                                <span class="award__lv award__lv--top">省级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2025.05</span>
+                                <span class="award__name">全国大学生电商挑战赛<span>第十五届 · 某某大学校级赛一等奖</span></span>
+                                <span class="award__lv">校级</span>
+                            </div>
+                            <div class="award">
+                                <span class="award__date">2025.03</span>
+                                <span class="award__name">学院寒假实习计划先进个人</span>
+                                <span class="award__lv">院级</span>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top:28px;font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;">证书预览 · 点击放大</h4>
+                        <div class="media-grid media-grid--certs" style="margin-top:12px;">
+                            <figure class="shot" data-lightbox-item data-fallback-host>
+                                <img src="img/cert1.jpg" alt="荣誉证书 1" loading="lazy" data-fallback>
+                                <div class="media-placeholder"><span>证书 1<br>待补充</span></div>
+                            </figure>
+                            <figure class="shot" data-lightbox-item data-fallback-host>
+                                <img src="img/cert2.jpg" alt="荣誉证书 2" loading="lazy" data-fallback>
+                                <div class="media-placeholder"><span>证书 2<br>待补充</span></div>
+                            </figure>
+                            <figure class="shot" data-lightbox-item data-fallback-host>
+                                <img src="img/cert3.jpg" alt="荣誉证书 3" loading="lazy" data-fallback>
+                                <div class="media-placeholder"><span>证书 3<br>待补充</span></div>
+                            </figure>
+                        </div>
+                    </div>
+
+                    <div class="panel" data-reveal style="--d:80ms">
+                        <div class="panel__head">
+                            <span class="panel__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4"/><path d="M13 5l-2 14"/></svg>
+                            </span>
+                            <h3 class="panel__title">技术栈</h3>
+                        </div>
+                        <div class="skillgroups">
+                            <div class="skillgroup">
+                                <span class="skillgroup__label">语言基础</span>
+                                <div class="tagwall">
+                                    <span class="tag">C</span>
+                                    <span class="tag">C++</span>
+                                    <span class="tag">Python（入门）</span>
+                                </div>
+                            </div>
+                            <div class="skillgroup">
+                                <span class="skillgroup__label">前端 / 小程序</span>
+                                <div class="tagwall">
+                                    <span class="tag">微信小程序</span>
+                                    <span class="tag">WXML / WXSS</span>
+                                    <span class="tag">Web 前端</span>
+                                </div>
+                            </div>
+                            <div class="skillgroup">
+                                <span class="skillgroup__label">数据库</span>
+                                <div class="tagwall">
+                                    <span class="tag">数据库原理</span>
+                                    <span class="tag">SQL 基础</span>
+                                </div>
+                            </div>
+                            <div class="skillgroup">
+                                <span class="skillgroup__label">测试（学习中）</span>
+                                <div class="tagwall">
+                                    <span class="tag">测试用例设计</span>
+                                    <span class="tag">缺陷管理</span>
+                                    <span class="tag">接口测试</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 关于我 ================= -->
+        <section class="section" id="about">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <span class="eyebrow">About</span>
+                    <h2 class="section-title">关于我</h2>
+                </div>
+
+                <div class="profile" data-reveal>
+                    <div class="profile__photo" data-fallback-host>
+                        <picture>
+                            <source srcset="img/avatar.webp" type="image/webp">
+                            <img src="img/avatar.jpg" alt="小可" width="800" height="1066" loading="lazy" data-fallback>
+                        </picture>
+                        <div class="portrait__empty">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                            <span>照片待放入 <code>img/avatar.jpg</code></span>
+                        </div>
+                        <span class="profile__badge">
+                            <span class="pulse" style="position:relative;width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;"></span>
+                            目前在某市 · 可远程协作
+                        </span>
+                    </div>
+
+                    <div>
+                        <h3 class="profile__name">小可 <span class="gradient-text">Demo</span></h3>
+                        <p class="profile__role">软件工程 · 软件测试 / 小程序前端 / 团队协作</p>
+
+                        <div class="profile__text">
+                            <p>
+                                某某大学软件工程专业，班级学习委员、校学生会理事长。
+                                带过一个团队把 AI 小程序从方案做到上线，也在社团里做了两年多的学生工作，
+                                真正让我上瘾的是<strong>「做出来的东西真的有人在用」</strong>这件事。
+                            </p>
+                            <p>
+                                方向是<strong>软件测试</strong>：比起把功能堆出来，我更在意它到底能不能正常跑、边界在哪。
+                                正在系统学习测试用例设计与缺陷管理，也在把项目里的联调、验收经验整理成方法。
+                            </p>
+                        </div>
+
+                        <div class="dl">
+                            <div class="dl__row"><span class="dl__k">外号由来</span><span class="dl__v">同学和队友都叫我 Demo</span></div>
+                            <div class="dl__row"><span class="dl__k">在做的事</span><span class="dl__v">系统学习软件测试 · 整理示例项目的项目文档</span></div>
+                            <div class="dl__row"><span class="dl__k">邮箱</span><span class="dl__v">hello@example.com</span></div>
+                        </div>
+
+                        <div class="row wrapf gap-12" style="margin-top:26px;">
+                            <a class="btn btn--primary" href="about.html">查看详细介绍</a>
+                            <a class="btn btn--ghost" href="resume.html">简历预览</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 成长时间轴 ================= -->
+        <section class="section section--tight" id="journey">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <span class="eyebrow">Journey</span>
+                    <h2 class="section-title">我是怎么走到这里的</h2>
+                    <p class="section-desc">四个阶段，每一步都留下了一个能拿出来的东西。</p>
+                </div>
+
+                <div class="grid-2" data-reveal>
+                    <div class="timeline">
+                        <div class="tl">
+                            <span class="tl__tag">起步</span>
+                            <h4 class="tl__title">从课程作业开始写代码</h4>
+                            <p class="tl__text">接触 Python 与 Web 基础，把课程作业当成真实项目来做，养成先想清楚结构再动手的习惯。</p>
+                        </div>
+                        <div class="tl">
+                            <span class="tl__tag">深耕</span>
+                            <h4 class="tl__title">学生工作与课程基础</h4>
+                            <p class="tl__text">干事→副部长→理事长，一边参与社团运营，一边把计算机网络、数据库这些课打牢。</p>
+                        </div>
+                    </div>
+                    <div class="timeline">
+                        <div class="tl">
+                            <span class="tl__tag">实战</span>
+                            <h4 class="tl__title">带团队做《示例项目》</h4>
+                            <p class="tl__text">作为团队负责人兼前端主导，把一款 AI 小程序从方案推到上线，负责页面、交互与整体进度。</p>
+                        </div>
+                        <div class="tl">
+                            <span class="tl__tag">冲刺</span>
+                            <h4 class="tl__title">转向软件测试</h4>
+                            <p class="tl__text">项目里最让我有成就感的是把问题找出来，于是开始系统学测试用例与缺陷管理，准备走测试方向。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 笔记 ================= -->
+        <section class="section section--alt section--tight" id="notes">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <span class="eyebrow">Notes</span>
+                    <h2 class="section-title">最近在写</h2>
+                    <p class="section-desc">项目里踩过的坑、想清楚的设计，以及那些没地方放的碎碎念。</p>
+                </div>
+                <!-- NOTES:START -->
+                <div class="cards">
+                    <article class="card" data-reveal>
+                        <div class="card__body">
+                            <div class="card__meta"><span class="chip">2026-11-14</span></div>
+                            <h3 class="card__title"><a class="card__stretch" href="notes/2026-11-14-deploy-https.html">小程序后端上线：从 ECS 到 HTTPS 的完整清单</a></h3>
+                            <p class="card__text">备案、Nginx、证书、合法域名——跟着项目完整走了一遍上线流程，真正卡人的从来不是代码。</p>
+                            <div class="card__foot">
+                                <span>阅读约 2 分钟</span>
+                                <span class="arrow-link">阅读
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card" data-reveal>
+                        <div class="card__body">
+                            <div class="card__meta"><span class="chip">2026-11-09</span></div>
+                            <h3 class="card__title"><a class="card__stretch" href="notes/2026-11-09-api-permission-audit.html">接口越权自查：后端权限的四个检查点</a></h3>
+                            <p class="card__text">越权漏洞比 SQL 注入更常见，因为它不在代码里，而在「你想当然的那一步」。</p>
+                            <div class="card__foot">
+                                <span>阅读约 2 分钟</span>
+                                <span class="arrow-link">阅读
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- NOTES:END -->
+                <div class="row wrapf" style="justify-content:center;margin-top:36px;" data-reveal>
+                    <a class="btn btn--ghost" href="notes/index.html">查看全部笔记</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 联系 ================= -->
+        <section class="section" id="contact">
+            <div class="wrap">
+                <div class="cta" data-reveal>
+                    <h2 class="cta__title">想聊聊项目，或者有个坑想一起填？</h2>
+                    <p class="cta__text">
+                        软件测试实习、竞赛组队、小程序前端开发都欢迎。发邮件说明你的想法，我通常在一天内回复。
+                    </p>
+                    <div class="cta__actions">
+                        <button class="btn btn--primary" type="button" data-copy="hello@example.com" data-track="copy-email">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
+                            复制邮箱
+                        </button>
+                        <a class="btn btn--ghost" href="mailto:hello@example.com" data-track="email-click">
+                            发送邮件
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 页脚 ================= -->
+    <footer class="footer">
+        <div class="wrap">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a class="brand" href="index.html">
+                        <span class="brand__mark" aria-hidden="true">C</span>
+                        <span>示例手记<span class="brand__sub">Demo · 作品与手记</span></span>
+                    </a>
+                    <p>一个软件工程学生的作品与记录 —— 小程序、前端与软件测试。</p>
+                    <div class="footer__social">
+                        <a class="icon-btn" href="https://github.com/your-github" target="_blank" rel="noopener" aria-label="GitHub" data-track="github">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        </a>
+                        <a class="icon-btn" href="mailto:hello@example.com" aria-label="邮箱">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer__col">
+                    <h4>页面</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">详细介绍</a></li>
+                        <li><a href="resume.html">简历</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__col">
+                    <h4>内容</h4>
+                    <ul>
+                        <li><a href="index.html#project">项目作品</a></li>
+                        <li><a href="detail.html">示例项目详情</a></li>
+                        <li><a href="index.html#award">荣誉 &amp; 技能</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__col">
+                    <h4>联系</h4>
+                    <ul>
+                        <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+                        <li><a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a></li>
+                        <li><a href="index.html#contact">合作意向</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 备案号：备案通过后，把下面这行放进 footer__bottom 里并去掉注释-->
+                 <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备2026067296号</a> 
+            <div class="footer__bottom">
+                <span>© <span data-year>2026</span> 示例手记 · 小可</span>
+                <span>example.com</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部 -->
+    <button class="to-top" type="button" aria-label="回到顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
+    <!-- 证书灯箱 -->
+    <div class="lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="图片查看器">
+        <button class="lightbox__close" type="button" data-lb-close aria-label="关闭预览">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+        <div class="lightbox__stage">
+            <button class="lightbox__nav lightbox__nav--prev" type="button" data-lb-prev aria-label="上一张">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+            </button>
+            <figure class="lightbox__figure">
+                <img src="" alt="">
+                <figcaption class="lightbox__cap" data-lb-caption></figcaption>
+            </figure>
+            <button class="lightbox__nav lightbox__nav--next" type="button" data-lb-next aria-label="下一张">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+        <div class="lightbox__bar">
+            <span class="lightbox__counter" data-lb-counter></span>
+            <div class="lightbox__thumbs" data-lb-thumbs></div>
+        </div>
+    </div>
+
+    <!-- 轻提示 -->
+    <div class="toast" role="status" aria-live="polite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>
+        <span data-toast-text></span>
+    </div>
+</body>
+</html>
